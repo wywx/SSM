@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jjzy.dao.UserDao">
+    <sql id="defatsql">
+        select * from user
+    </sql>
+
+    <select id="selectByName" resultType="com.jjzy.pojo.User" parameterType="com.jjzy.pojo.User">
+         <include refid="defatsql">
+         </include>
+         <where>
+             <if test="username!=null">
+                 <bind name="users" value="'%'+username+'%'"/>
+                 username like #{users}
+             </if>
+             <if test="sex!=null">
+                 <bind name="sexs" value="'%'+sex+'%'"/>
+               or sex like #{sexs}
+             </if>
+         </where>
+    </select>
+
+
+</mapper>
